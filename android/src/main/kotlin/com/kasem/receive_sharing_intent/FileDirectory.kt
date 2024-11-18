@@ -93,14 +93,16 @@ object FileDirectory {
         if (uri.authority != null) {
             var cursor: Cursor? = null
             val column = "_display_name"
-            val projection = arrayOf(column)
+            val projection = arrayOf(column, MediaStore.Images.ImageColumns.DATA)
             var targetFile: File? = null
             try {
                 cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
                 if (cursor != null && cursor.moveToFirst()) {
                     val columnIndex = cursor.getColumnIndexOrThrow(column)
                     val fileName = cursor.getString(columnIndex)
-                    Log.i("FileDirectory", "File name: $fileName")
+                    val columnIndex2 = cursor.getColumnIndexOrThrow(MediaStore.Images.ImageColumns.DATA)
+                    val fileName2 = cursor.getString(columnIndex2)
+                    Log.i("FileDirectory", "File name: $fileName, $fileName2")
                     targetFile = File(context.cacheDir, fileName)
                 }
             } finally {
