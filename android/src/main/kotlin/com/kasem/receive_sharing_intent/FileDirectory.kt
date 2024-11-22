@@ -100,9 +100,6 @@ object FileDirectory {
                 if (cursor != null && cursor.moveToFirst()) {
                     val columnIndex = cursor.getColumnIndexOrThrow(column)
                     val fileName = cursor.getString(columnIndex)
-                    val columnIndex2 = cursor.getColumnIndexOrThrow(MediaStore.Images.ImageColumns.DATA)
-                    val fileName2 = cursor.getString(columnIndex2)
-                    Log.i("FileDirectory", "File name: $fileName, $fileName2")
                     targetFile = File(context.cacheDir, fileName)
                 }
             } finally {
